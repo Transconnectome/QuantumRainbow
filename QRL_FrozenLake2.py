@@ -288,9 +288,9 @@ class exp_val_layer(nn.Module):
         return self.weights * ((out + 1.) / 2.)
 
 
-class QRDQNQuantumNN(torch.nn.Module):
+class QuantumRainbowNN(torch.nn.Module):
     def __init__(self, state_shape, num_actions, num_quantiles, device, seed=2023):
-        super(QRDQNQuantumNN, self).__init__()
+        super(QuantumRainbowNN, self).__init__()
         self.device = device
         self.state_shape = state_shape
         self.num_actions = num_actions
@@ -335,7 +335,7 @@ class QRDQNQuantumNN(torch.nn.Module):
     
     def __deepcopy__(self, memodict={}):
         # Target Network: Create a new instance of the class
-        new_instance = QRDQNQuantumNN(state_shape=self.state_shape,
+        new_instance = QuantumRainbowNN(state_shape=self.state_shape,
                                       num_actions=self.num_actions,
                                       num_quantiles=self.num_quantiles,
                                       device=self.device)
@@ -411,7 +411,7 @@ action_shape = env.action_space.n  # equivalent to 2 for CartPole-v1
 # from torch.nn import DataParallel
 # device = "cuda" if torch.cuda.is_available() else "cpu"
 
-_net = QRDQNQuantumNN(state_shape, action_shape, args.num_quantiles, args.device)
+_net = QuantumRainbowNN(state_shape, action_shape, args.num_quantiles, args.device)
 net = _net.to(args.device)
 
 #With DP
